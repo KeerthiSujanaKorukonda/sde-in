@@ -15,3 +15,10 @@ I avoided some of the other PRs deliberately. PR #196, which adds separate socke
 The main implementation challenge I anticipate is the broker routing logic, specifically making sure the partition-to-broker-leader mapping is done correctly using cluster metadata, and handling the case where that metadata is stale because the leader has changed since the last refresh. A second challenge is the protocol layer. Sending ListOffsetRequest version 1 requires knowing the exact wire format, and getting any field wrong in the request builder would cause silent failures or confusing errors at the broker side.
 
 To overcome these, I would start by reading how existing offset fetch requests are sent in aiokafka/client.py and aiokafka/protocol/offset.py to understand the established pattern before writing any new code. For broker routing, I would trace how seek() currently resolves partition leaders and follow the same approach. For testing, I would rely heavily on the existing integration test setup with the Docker Kafka container since unit tests alone will not catch protocol-level bugs where the request is structurally wrong.
+
+---
+
+### Declaration
+
+I declare that all written content in this assessment is my own work, created without the use of AI language models or automated writing tools. All technical analysis and documentation reflects my personal understanding and has been written in my own words.
+
