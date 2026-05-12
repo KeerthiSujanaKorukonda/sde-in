@@ -57,3 +57,8 @@ The results are collected from all brokers asynchronously and combined into a si
 ### Potential Impact
 
 This touches the cluster metadata and client request-routing logic, which is a more central part of the library. Any bug in how partitions are mapped to brokers could result in sending requests to the wrong node and getting incorrect results. The feature also requires Kafka broker version 0.10.1 or higher, so using it against older Kafka clusters would fail at runtime. This API is especially critical for stream processing applications that need point-in-time recovery after outages.
+---
+
+### Declaration
+
+I declare that all written content in this assessment is my own work, created without the use of AI language models or automated writing tools. All technical analysis and documentation reflects my personal understanding and has been written in my own words.
