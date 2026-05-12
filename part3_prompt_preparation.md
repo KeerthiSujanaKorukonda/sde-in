@@ -104,3 +104,8 @@ Testing requirements:
 Write at least three integration tests. The first test is a basic happy path where you produce messages with known timestamps, call offsets_for_times, and verify the returned offset is correct. The second test uses a future timestamp and verifies that None is returned. The third test queries three partitions simultaneously and verifies all results are correct and complete.
 
 Use the existing test patterns in tests/test_consumer.py. They use pytest-asyncio with async def test_ style functions and a running Docker Kafka instance. Follow those patterns exactly so the new tests integrate cleanly with the existing test suite.
+---
+
+### Declaration
+
+I declare that all written content in this assessment is my own work, created without the use of AI language models or automated writing tools. All technical analysis and documentation reflects my personal understanding and has been written in my own words.
