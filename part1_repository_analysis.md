@@ -81,3 +81,9 @@ At 97.5% Python, MetaGPT has no meaningful non-Python components at all.
 | archivematica | Yes | Digital preservation system | Django MVC plus pipeline | Libraries and archives |
 | beets | Yes | Music library manager | Plugin-based CLI | Media management |
 | MetaGPT | Yes | Multi-agent AI coding framework | Agent/Role plus message-passing | AI and LLM tooling |
+
+---
+
+### Declaration
+
+I declare that all written content in this assessment is my own work, created without the use of AI language models or automated writing tools. All technical analysis and documentation reflects my personal understanding and has been written in my own words.
