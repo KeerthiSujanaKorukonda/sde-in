@@ -2,19 +2,19 @@
 
 ## Task 1.1: Python Repository Selection
 
-### Which Repositories are Strictly Python-Based?
+### Identifying Python-Based Repositories
 
-After reviewing all 5 repositories, here is the verdict:
+After going through all five repositories, here is how they break down by language:
 
-| Repository | Primary Language | Python? |
+| Repository | Primary Language | Strictly Python? |
 |---|---|---|
-| aio-libs/aiokafka | Python 93.1%, Cython 5.1%, C 1.1% | ✅ YES |
-| airbytehq/airbyte | Python 51.3%, Kotlin 37.6%, Java 8.6% | ❌ NO (multi-language) |
-| artefactual/archivematica | Python 83.0%, TypeScript 8.5%, Vue 4.8% | ✅ YES (Python-primary) |
-| beetbox/beets | Python 96.2%, JavaScript 3.3% | ✅ YES |
-| FoundationAgents/MetaGPT | Python 97.5% | ✅ YES |
+| aio-libs/aiokafka | Python 93.1%, Cython 5.1%, C 1.1% | Yes |
+| airbytehq/airbyte | Python 51.3%, Kotlin 37.6%, Java 8.6% | No |
+| artefactual/archivematica | Python 83.0%, TypeScript 8.5%, Vue 4.8% | Yes |
+| beetbox/beets | Python 96.2%, JavaScript 3.3% | Yes |
+| FoundationAgents/MetaGPT | Python 97.5% | Yes |
 
-**airbyte** is excluded because it's genuinely a multi-language platform — Kotlin and Java make up nearly half the codebase, and the core platform/backend services are written in Java/Kotlin.
+Airbyte is excluded because it is genuinely a multi-language platform. Kotlin and Java together make up nearly half the codebase, and the core platform services are written in those languages. The remaining four are all Python-primary.
 
 ---
 
@@ -24,12 +24,12 @@ After reviewing all 5 repositories, here is the verdict:
 
 | Field | Details |
 |---|---|
-| **Primary Purpose** | Async Python client for Apache Kafka — lets Python apps produce and consume messages from Kafka topics using asyncio |
-| **Key Dependencies** | `kafka-python` (underlying protocol), `asyncio` (built-in), `Cython` (optional C extension for performance) |
-| **Architecture Patterns** | Event-driven / async I/O pattern; wraps the synchronous kafka-python library with `asyncio` coroutines; uses Producer/Consumer pattern; Connection pooling per broker node |
-| **Target Use Case** | Backend services that need non-blocking, high-throughput messaging — microservices, real-time data pipelines, event streaming systems |
+| Primary Purpose | Async Python client for Apache Kafka. Lets Python applications produce and consume Kafka messages using asyncio without blocking the event loop |
+| Key Dependencies | kafka-python (protocol layer), asyncio (built-in), Cython (optional performance extension) |
+| Architecture Patterns | Event-driven async I/O; wraps kafka-python with asyncio coroutines; Producer/Consumer pattern; per-broker connection pooling |
+| Target Use Case | Backend services that need non-blocking, high-throughput messaging such as microservices, real-time data pipelines, and event streaming systems |
 
-**Notes:** The Cython files are just performance optimizations for the Python core — the library is fundamentally Python. The small C portion is Cython-compiled output.
+The Cython files are purely performance optimizations on top of the Python core. The small C portion is compiled Cython output, not hand-written C code.
 
 ---
 
@@ -37,12 +37,12 @@ After reviewing all 5 repositories, here is the verdict:
 
 | Field | Details |
 |---|---|
-| **Primary Purpose** | Digital preservation system — ingests digital files (documents, images, audio, video), packages them into archival standards (OAIS/BagIt), and stores them long-term with full metadata |
-| **Key Dependencies** | Django (web dashboard), Celery/MCP task system (background processing), MySQL/PostgreSQL, `lxml`, `bagit-python` |
-| **Architecture Patterns** | MVC via Django for the dashboard; microservice-style separation between MCPServer (task coordinator) and MCPClient (task executors); pipeline/workflow pattern for processing digital objects |
-| **Target Use Case** | Libraries, archives, museums, and universities that need to preserve digital collections — archivists and librarians are the primary users |
+| Primary Purpose | Digital preservation system. Ingests digital files such as documents, images, audio and video, packages them into archival standards like OAIS and BagIt, and stores them long-term with full metadata |
+| Key Dependencies | Django (web dashboard), MCP task system for background processing, MySQL/PostgreSQL, lxml, bagit-python |
+| Architecture Patterns | Django MVC for the dashboard; separation between MCPServer (task coordinator) and MCPClient (task executors); pipeline/workflow pattern for processing digital objects |
+| Target Use Case | Libraries, archives, museums, and universities that need to preserve digital collections. Primary users are archivists and librarians |
 
-**Notes:** TypeScript/Vue is only the newer frontend UI layer; the actual logic and backend is all Python.
+The TypeScript and Vue portions are only the newer frontend UI layer. All the actual business logic and backend processing is Python.
 
 ---
 
@@ -50,12 +50,12 @@ After reviewing all 5 repositories, here is the verdict:
 
 | Field | Details |
 |---|---|
-| **Primary Purpose** | Music library manager — imports music files, auto-corrects metadata by querying MusicBrainz, and lets you query/organize your collection via CLI |
-| **Key Dependencies** | `mutagen` (audio tag reading/writing), `requests`, `SQLite` (via built-in library for the library database), `MusicBrainzNGS` |
-| **Architecture Patterns** | Plugin architecture — a core library with hooks/events that plugins subscribe to; CLI command pattern; active record-like pattern for music Item and Album objects |
-| **Target Use Case** | Music enthusiasts who want their collection properly tagged and organized — power users who prefer command-line tools |
+| Primary Purpose | Music library manager. Imports music files, auto-corrects metadata by querying MusicBrainz, and provides a CLI for querying and organizing your collection |
+| Key Dependencies | mutagen (audio tag reading and writing), requests, SQLite via built-in library for the music database, MusicBrainzNGS |
+| Architecture Patterns | Plugin architecture with a core library and hooks that plugins subscribe to; CLI command pattern; active record-style pattern for Item and Album objects |
+| Target Use Case | Music enthusiasts and power users who want their collections properly tagged and prefer command-line tools |
 
-**Notes:** The JavaScript (3.3%) is only a small web UI plugin — the entire core is Python.
+The JavaScript at 3.3% is limited to a small web UI plugin. The entire core of the project is Python.
 
 ---
 
@@ -63,21 +63,21 @@ After reviewing all 5 repositories, here is the verdict:
 
 | Field | Details |
 |---|---|
-| **Primary Purpose** | Multi-agent LLM framework — simulates a software company with AI agents playing different roles (product manager, architect, engineer) that collaborate to convert a one-line requirement into working code |
-| **Key Dependencies** | `openai` (LLM API), `pydantic` (data validation), `aiohttp` (async HTTP), `tenacity` (retry logic), `anthropic`, `fire` (CLI) |
-| **Architecture Patterns** | Agent/Role pattern — each role is a class with specific actions; message-passing architecture where agents communicate via a shared environment; chain-of-thought planning built into each role |
-| **Target Use Case** | Developers and researchers exploring autonomous AI software development; teams wanting to automate parts of the software design and coding workflow |
+| Primary Purpose | Multi-agent LLM framework that simulates a software company. AI agents play roles like product manager, architect, and engineer, collaborating to turn a one-line requirement into working code |
+| Key Dependencies | openai (LLM API), pydantic (data validation), aiohttp (async HTTP), tenacity (retry logic), anthropic, fire (CLI) |
+| Architecture Patterns | Agent/Role pattern where each role is a class with specific actions; message-passing architecture where agents communicate via a shared environment; chain-of-thought planning built into each role |
+| Target Use Case | Developers and researchers exploring autonomous AI software development; teams wanting to automate parts of the software design and coding workflow |
 
-**Notes:** 97.5% Python with no significant non-Python components at all.
+At 97.5% Python, MetaGPT has no meaningful non-Python components at all.
 
 ---
 
-## Summary Table
+## Summary Comparison Table
 
-| Repo | Python? | Purpose | Architecture | Domain |
+| Repo | Python | Purpose | Architecture | Domain |
 |---|---|---|---|---|
-| aiokafka | ✅ | Async Kafka client | Async I/O, Producer/Consumer | Messaging / streaming |
-| airbyte | ❌ | ETL/ELT data pipeline platform | Multi-language platform | Data integration |
-| archivematica | ✅ | Digital preservation system | Django MVC + pipeline/workflow | Libraries/Archives |
-| beets | ✅ | Music library manager | Plugin-based CLI | Media management |
-| MetaGPT | ✅ | Multi-agent AI coding framework | Agent/Role + message-passing | AI / LLM tooling |
+| aiokafka | Yes | Async Kafka client | Async I/O, Producer/Consumer | Messaging and streaming |
+| airbyte | No | ETL/ELT data pipeline platform | Multi-language platform | Data integration |
+| archivematica | Yes | Digital preservation system | Django MVC plus pipeline | Libraries and archives |
+| beets | Yes | Music library manager | Plugin-based CLI | Media management |
+| MetaGPT | Yes | Multi-agent AI coding framework | Agent/Role plus message-passing | AI and LLM tooling |
